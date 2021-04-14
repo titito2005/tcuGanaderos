@@ -23,6 +23,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import ucr.ac.cr.ecci.Models.Finca;
 
 
 /**
@@ -35,6 +36,7 @@ public class ServicioUI extends javax.swing.JFrame {
     Servicio servicio;
     boolean editar = false;
     private java.util.List<String> tipoServicios;
+    int idFincaBovino=0;
     /**
      * Creates new form ServicioUI
      */
@@ -45,6 +47,9 @@ public class ServicioUI extends javax.swing.JFrame {
     
     public ServicioUI(Bovino bovino){
         centreWindow(this);
+        this.bovino = bovino;
+        Finca fincaBovino = bovino.getIdFinca();
+        idFincaBovino = fincaBovino.getId();
         initComponents();
         comprobacionComboBox1.addItem("Negativo");
         comprobacionComboBox1.addItem("Positivo");
@@ -53,7 +58,6 @@ public class ServicioUI extends javax.swing.JFrame {
         tipoServicioComboBox1.addItem("IA");
         tipoServicioComboBox1.addItem("IATF");
         tipoServicioComboBox1.addItem("Transferencia de embriones");
-        this.bovino = bovino;
         this.vaca_id = Integer.toString(bovino.getId());
         jTextField5.setText(vaca_id);
         jTextField1.setText("Pronto a definir");
@@ -131,7 +135,7 @@ public class ServicioUI extends javax.swing.JFrame {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         TCUGanaderosPUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("TCUGanaderosPU").createEntityManager();
-        bovinoQuery = bovinoQuery = java.beans.Beans.isDesignTime() ? null : TCUGanaderosPUEntityManager.createQuery("SELECT b FROM Bovino b WHERE b.esToro = 1");
+        bovinoQuery = java.beans.Beans.isDesignTime() ? null : TCUGanaderosPUEntityManager.createQuery("SELECT b FROM Bovino b WHERE b.esToro = 1 AND b.idFinca.id = "+ idFincaBovino);
         bovinoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : bovinoQuery.getResultList();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();

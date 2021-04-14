@@ -16,6 +16,8 @@ import ucr.ac.cr.ecci.DBManager;
 import static ucr.ac.cr.ecci.Frames.VacaTableUI.centreWindow;
 import ucr.ac.cr.ecci.Models.Bovino;
 import ucr.ac.cr.ecci.Models.Finca;
+import ucr.ac.cr.ecci.Models.Configuracion;
+import java.io.IOException;
 
 /**
  *
@@ -240,9 +242,56 @@ public class FincaTableUI extends javax.swing.JFrame {
                     if(des2==0){
                         DBManager dbm = new DBManager();
                         Finca fincaDB= dbm.findFincaById(fincaLocal.getId());
+                        int finca_id= fincaDB.getId();
+                        
+                        java.util.List bovinosList;
+                        javax.persistence.Query bovinosQuery;
+                        
+                        bovinosQuery = TCUGanaderosPUEntityManager.createQuery("SELECT b FROM Bovino b WHERE b.idFinca.id = " + finca_id);
+                        bovinosList = bovinosQuery.getResultList();
+                        
+                        java.util.List configuracionList;
+                        javax.persistence.Query configuracionQuery;
+                        
+                        configuracionQuery = TCUGanaderosPUEntityManager.createQuery("SELECT c FROM Configuracion c WHERE c.idFinca.id = " + finca_id);
+                        configuracionList = configuracionQuery.getResultList();
+                        
+                        int bovinosSize = bovinosList.size();
+                        int configuracionSize = configuracionList.size();
+                        
+                        if(bovinosSize!=0){
+                     
+                            for(int i=0; i<bovinosSize; i++){
+                                Bovino aux= (Bovino)bovinosList.get(i);
+                                Bovino vacaNula=null;
+                                aux.setIdMadre(vacaNula);
+                                aux.setIdPadre(vacaNula);                              
+                                dbm.updateBovino(aux);
+                            }
+                            
+                            for(int i=0; i<bovinosSize; i++){
+                               Bovino aux= (Bovino)bovinosList.get(i);
+                               Bovino bovinoDB = dbm.findBovinoById(aux.getId());
+                               dbm.delete(bovinoDB);
+                            }
+                        }
+                        
+                        if(configuracionSize!=0){
+                            for(int i=0; i<configuracionSize; i++){
+                                Configuracion aux= (Configuracion)configuracionList.get(i);
+                                Configuracion configuracionDB = dbm.findConfiguracionById(aux.getId());
+                                dbm.delete(configuracionDB);
+                            }
+                        }
+                        
+                        try{
                         dbm.delete(fincaDB);
                         dbm.close();
                         dispose();
+                        }catch(Exception e){
+                            JOptionPane.showMessageDialog(new JFrame(),"Error al eliminar la finca.","Error de operación",JOptionPane.ERROR_MESSAGE);
+                        }
+ 
                     }else{
                         JOptionPane.showMessageDialog(new JFrame(),"Acción cancelada","Error de operación",JOptionPane.ERROR_MESSAGE);
                     }

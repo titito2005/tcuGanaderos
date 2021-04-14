@@ -95,6 +95,11 @@ public class DBManager {
         return c;
     }
     
+    public Configuracion findConfiguracionById(int id) {
+        Configuracion c = em.find(Configuracion.class, id);
+        return c;
+    }
+    
     public Destete findDesteteById(int id) {
         Destete d = em.find(Destete.class, id);
         return d;
@@ -134,12 +139,7 @@ public class DBManager {
         ModoPreñez mp = em.find(ModoPreñez.class, id);
         return mp;
     }
-    
-    public Configuracion findConfiguracionById(int id) {
-        Configuracion c = em.find(Configuracion.class, id);
-        return c;
-    }
-    
+     
     public void delete(Object obj) {
         em.getTransaction().begin();
         em.remove(obj);

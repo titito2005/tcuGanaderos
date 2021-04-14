@@ -15,7 +15,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="bovinoQuery = java.beans.Beans.isDesignTime() ? null : TCUGanaderosPUEntityManager.createQuery(&quot;SELECT b FROM Bovino b WHERE b.esToro = 1&quot;)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="java.beans.Beans.isDesignTime() ? null : TCUGanaderosPUEntityManager.createQuery(&quot;SELECT b FROM Bovino b WHERE b.esToro = 1 AND b.idFinca.id = &quot;+ idFincaBovino)"/>
       </AuxValues>
     </Component>
     <Component class="java.util.List" name="bovinoList">

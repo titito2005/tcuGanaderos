@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Wed Apr 14 12:39:00 CST 2021:
- Iniciando instancia a816c00e-0178-d1ad-ef57-00000842d0e8 de Derby, versión The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): 
-en el directorio de base de datos C:\Users\XPC\Desktop\TCU\TCUGanaderos\TCUGanaderosDB con el cargador de clases sun.misc.Launcher$AppClassLoader@7a81197d
+Wed Apr 14 17:42:08 CST 2021:
+ Iniciando instancia a816c00e-0178-d2c3-75fb-000008512d78 de Derby, versión The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): 
+en el directorio de base de datos C:\Users\XPC\Desktop\gitGanaderos\tcuGanaderos\TCUGanaderosDB con el cargador de clases sun.misc.Launcher$AppClassLoader@7a81197d
 Cargado desde file:/C:/Program%20Files/Java/jdk1.8.0_111/db/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_111-b14

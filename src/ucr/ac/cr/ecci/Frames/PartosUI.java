@@ -27,6 +27,7 @@ public class PartosUI extends javax.swing.JFrame {
     
     Bovino bovino;
     Parto parto;
+    int idFincaBovino=0;
 
     /**
      * Creates new form PartosUI
@@ -38,8 +39,10 @@ public class PartosUI extends javax.swing.JFrame {
     
     public PartosUI(Bovino bovino) {
         centreWindow(this);
-        initComponents();
         this.bovino = bovino;
+        Finca fincaBovino = bovino.getIdFinca();
+        idFincaBovino = fincaBovino.getId();
+        initComponents();
         fechaDatePicker.setDate(java.sql.Date.valueOf(LocalDate.now()));
         sexoButtonGroup.add(mRadioButton);
         sexoButtonGroup.add(fRadioButton);
@@ -57,7 +60,7 @@ public class PartosUI extends javax.swing.JFrame {
 
         sexoButtonGroup = new javax.swing.ButtonGroup();
         TCUGanaderosPUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("TCUGanaderosPU").createEntityManager();
-        bovinoQuery = java.beans.Beans.isDesignTime() ? null : TCUGanaderosPUEntityManager.createQuery("SELECT b FROM Bovino b, Finca finca WHERE b.esToro = 1 AND b.idFinca.id = finca.id");
+        bovinoQuery = bovinoQuery = java.beans.Beans.isDesignTime() ? null : TCUGanaderosPUEntityManager.createQuery("SELECT b FROM Bovino b WHERE b.esToro = 1 AND b.idFinca.id = "+ idFincaBovino);
         bovinoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : bovinoQuery.getResultList();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
