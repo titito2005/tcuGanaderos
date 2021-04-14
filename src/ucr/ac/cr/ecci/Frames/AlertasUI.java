@@ -247,9 +247,6 @@ public class AlertasUI extends javax.swing.JFrame {
                     if(positivos!=0){
                         promedio = total/positivos;
                     }
-                    System.out.println(total + " Total");
-                    System.out.println(positivos + " Positivos");
-                    System.out.println(promedio + " Promedio");
                     
                     if(promedio>=SC){
                         SCList.add(vaca_temp);
@@ -434,9 +431,6 @@ public class AlertasUI extends javax.swing.JFrame {
                 servicioFecha.setTime(ultimoServicio.getFechaServicio());
                 
                 int diasServiciosActual = getIntervaloFechas( servicioFecha, actualFecha);
-                
-                System.out.println(ultimoServicio.getFechaServicio());
-                System.out.println(ultimoServicio.getEstaPreñada());
                 
                 if ( (diasServiciosActual + alertaPartos >= tiempoGestacion) && (ultimoServicio.getEstaPreñada())){
                     partosList.add(vaca_temp);

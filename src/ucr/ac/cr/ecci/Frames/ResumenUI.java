@@ -150,12 +150,9 @@ public class ResumenUI extends javax.swing.JFrame {
         abortosQuery = TCUGanaderosPUEntityManager.createQuery("SELECT COUNT (p) FROM Parto p, Finca finca WHERE p.muerteprematura = true AND p.idMadre.idFinca.id = finca.id" +  cond_finca);
         abortosList = abortosQuery.getResultList();
         double totalAbortos= abortosList.get(0);
-        System.out.println("todos" + totalPartos);
-        System.out.println("abortos" + totalAbortos);
         if(totalPartos!=0){
             retorno= (totalAbortos/totalPartos)*100;
         }
-        System.out.println("abortos" + retorno);
         return retorno;
     }
         
@@ -244,7 +241,6 @@ public class ResumenUI extends javax.swing.JFrame {
         if(contadorOperaciones!=0){
             retorno= promedioDias/contadorOperaciones;
         }
-        System.out.println("promedio seco"+retorno);
         return retorno;
     }
     
@@ -329,7 +325,6 @@ public class ResumenUI extends javax.swing.JFrame {
         if(contadorOperaciones!=0){
             retorno= promedioDias/contadorOperaciones;
         }
-        System.out.println("promedio celos"+retorno);
         return retorno;
     }
     
@@ -363,7 +358,6 @@ public class ResumenUI extends javax.swing.JFrame {
         double totalPromedioConcepcion=0;
         
         for (int i = 0; i < vacasList.size(); i++){
-            System.out.println("Vaquita");
             Bovino vaca_temp = (Bovino) vacasList.get(i);
             int vaca_id= vaca_temp.getId();
             
@@ -397,10 +391,6 @@ public class ResumenUI extends javax.swing.JFrame {
                     }
                     promedioFinal+=promedio;
                     porcentajeConcepcion+=totalPromedioConcepcion;
-                    System.out.println(total + " Total");
-                    System.out.println(positivos + " Positivos");
-                    System.out.println(promedio + " Promedio");
-                    System.out.println(totalPromedioConcepcion + " totalporcentajeConcepcion");
                     
                 }
             promedio=0;
@@ -411,7 +401,6 @@ public class ResumenUI extends javax.swing.JFrame {
         if(promedioFinal!=0){
             promedioFinal=promedioFinal/cantVacas;
             porcentajeConcepcion= (porcentajeConcepcion/cantVacas)*100;//PORCENTAJE DE CONCEPCION TOTAL.
-            System.out.println( porcentajeConcepcion + " porcentajeConcepcion");
         }else{
             promedioFinal=0;
         }
@@ -740,34 +729,7 @@ public class ResumenUI extends javax.swing.JFrame {
         resumen_title_style.setVerticalAlignment(VerticalAlignment.CENTER);
         resumen_title_style.setAlignment(HorizontalAlignment.CENTER);
         resumen_title_style.setWrapText(true);
-
-        //FileInputStream obtains input bytes from the image file
-   InputStream inputStream = new FileInputStream("C:/Users/XPC/Desktop/GitTCU/TCU/src/res/images/Gestion_Bovina.png");
-   //Get the contents of an InputStream as a byte[].
-   byte [] bytes = null;
-   int pictureIdx = 0;
-   try {
-        bytes = IOUtils.toByteArray(inputStream);
-    } catch (IOException e) {
-        System.out.println("Can't read picture"); // Or something more intellegent
-    }
-
-   //Adds a picture to the workbook
-    //try {
-        pictureIdx = workbook.addPicture(bytes, XSSFWorkbook.PICTURE_TYPE_PNG);
-  //  } catch (IOException e) {
-        System.out.println("Cant add picture"); // Or something more intellegent
-     //}
-
-   //close the input stream
-    try{
-         inputStream.close();
-    } catch(IOException e){
-         System.out.println("No pude cerrarlo"); 
-    }
         
- 
-
         //This data needs to be written (Object[])
         Map < Integer, Object[] > empinfo = new TreeMap < Integer, Object[] >();
         empinfo.put( 1, new Object[] {"","","","   REPORTE GENERAL DE LA FINCA GANADERA"});
@@ -888,14 +850,8 @@ public class ResumenUI extends javax.swing.JFrame {
                 Object[] partos_array = vaca.getPartoCollection().toArray();
                 Parto parto = (Parto) partos_array[partos_array.length-1];
                 Calendar parto_fecha = Calendar.getInstance();
-                System.out.println("Tengo que imprimir1");
-                System.out.println(parto.getFecha());
                 parto_fecha.setTime((Date)parto.getFecha());
-                System.out.println("Tengo que imprimir2");
-                System.out.println(parto_fecha);
                 fecha_parto = df.format(parto.getFecha());
-                System.out.println("Tengo que imprimir3");
-                System.out.println(fecha_parto);
                 //fecha_parto = df.format(parto_fecha);
             }
             
@@ -999,7 +955,6 @@ public class ResumenUI extends javax.swing.JFrame {
               FileOutputStream out = new FileOutputStream(new File(documentsPath + "\\"+ nombre_archivo))) {
               //write operation workbook using file out object
               workbook.write(out);
-              System.out.println(nombre_archivo);
               JOptionPane.showMessageDialog(null, "Reporte guardado en " + file.getAbsolutePath());
           } catch (IOException ex) {
               Logger.getLogger(ResumenUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -1290,7 +1245,6 @@ public class ResumenUI extends javax.swing.JFrame {
               FileOutputStream out = new FileOutputStream(new File(documentsPath + "\\"+ nombre_archivo))) {
               //write operation workbook using file out object
               workbook.write(out);
-              System.out.println(nombre_archivo);
               JOptionPane.showMessageDialog(null, "Reporte guardado en " + file.getAbsolutePath());
           } catch (IOException ex) {
               Logger.getLogger(ResumenUI.class.getName()).log(Level.SEVERE, null, ex);

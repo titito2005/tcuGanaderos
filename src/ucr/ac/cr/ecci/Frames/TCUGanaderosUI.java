@@ -237,21 +237,33 @@ public class TCUGanaderosUI extends javax.swing.JFrame {
     }//GEN-LAST:event_torosButtonActionPerformed
 
     private void configuracionesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracionesButtonActionPerformed
-        ConfiguracionUI config = new ConfiguracionUI();
-        config.setLocationRelativeTo(null);
-        config.setVisible(true);
+        if (!hayFincas()){
+            JOptionPane.showMessageDialog(null, "Debe haber al menos una finca antes de agregar bovinos."); 
+        }else{
+            ConfiguracionUI config = new ConfiguracionUI();
+            config.setLocationRelativeTo(null);
+            config.setVisible(true);
+        }
     }//GEN-LAST:event_configuracionesButtonActionPerformed
 
     private void alertasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alertasButtonActionPerformed
-        AlertasUI alerta = new AlertasUI();
-        alerta.setLocationRelativeTo(null);
-        alerta.setVisible(true);
+        if (!hayFincas()){
+            JOptionPane.showMessageDialog(null, "Debe haber al menos una finca antes de agregar bovinos."); 
+        }else{
+            AlertasUI alerta = new AlertasUI();
+            alerta.setLocationRelativeTo(null);
+            alerta.setVisible(true);
+        }
     }//GEN-LAST:event_alertasButtonActionPerformed
 
     private void resumenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resumenButtonActionPerformed
-        ResumenUI resumen =  new ResumenUI();
-        resumen.setLocationRelativeTo(null);
-        resumen.setVisible(true);
+        if (!hayFincas()){
+            JOptionPane.showMessageDialog(null, "Debe haber al menos una finca antes de agregar bovinos."); 
+        }else{
+            ResumenUI resumen =  new ResumenUI();
+            resumen.setLocationRelativeTo(null);
+            resumen.setVisible(true);
+        }
     }//GEN-LAST:event_resumenButtonActionPerformed
 
     private void acercaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acercaMenuItemActionPerformed

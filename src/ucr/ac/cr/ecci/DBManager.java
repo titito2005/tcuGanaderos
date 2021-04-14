@@ -154,6 +154,12 @@ public class DBManager {
         em.getTransaction().commit();
     }
     
+    public void deleteFinca (Finca finca){
+        Finca f = em.find(Finca.class, finca.getId());
+        em.getTransaction().begin();
+        em.getTransaction().commit();
+    }
+    
     public void updateBovino (Bovino bovino){
         Bovino b = em.find(Bovino.class, bovino.getId());
         em.getTransaction().begin();

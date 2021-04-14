@@ -7,10 +7,14 @@ package ucr.ac.cr.ecci.Frames;
 
 import java.awt.Component;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
+import ucr.ac.cr.ecci.DBManager;
 import static ucr.ac.cr.ecci.Frames.VacaTableUI.centreWindow;
+import ucr.ac.cr.ecci.Models.Bovino;
 import ucr.ac.cr.ecci.Models.Finca;
 
 /**
@@ -91,6 +95,7 @@ public class FincaTableUI extends javax.swing.JFrame {
         volverButton = new javax.swing.JButton();
         agregarButton = new javax.swing.JButton();
         detallesButton = new javax.swing.JButton();
+        eliminarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -160,6 +165,13 @@ public class FincaTableUI extends javax.swing.JFrame {
             }
         });
 
+        eliminarButton.setText("Eliminar");
+        eliminarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -173,6 +185,8 @@ public class FincaTableUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(volverButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(eliminarButton)
+                        .addGap(18, 18, 18)
                         .addComponent(detallesButton)
                         .addGap(18, 18, 18)
                         .addComponent(agregarButton)))
@@ -187,7 +201,8 @@ public class FincaTableUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(volverButton)
                     .addComponent(detallesButton)
-                    .addComponent(agregarButton))
+                    .addComponent(agregarButton)
+                    .addComponent(eliminarButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -203,6 +218,8 @@ public class FincaTableUI extends javax.swing.JFrame {
     private void detallesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detallesButtonActionPerformed
         if (fincasTable.getSelectedRow() != -1) {
             new FincaUI((Finca) fincaList.get(fincasTable.getSelectedRow())).setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(new JFrame(),"Debe seleccionar una finca.","Error de operación",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_detallesButtonActionPerformed
 
@@ -213,6 +230,29 @@ public class FincaTableUI extends javax.swing.JFrame {
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         repaintFincasTable();
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
+        if (fincasTable.getSelectedRow() != -1) {
+            Finca fincaLocal = fincaList.get(fincasTable.getSelectedRow());
+            int des = JOptionPane.showConfirmDialog(null, "¿Está seguro que quiere eliminar esta finca? La acción no es reversible y BORRARÁ TODOS LOS DATOS Y BOVINOS ASOCIADOS.","Eliminar Finca", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+            if(des==0){
+                int des2 = JOptionPane.showConfirmDialog(null, "Confirmar, borrará todos los datos.","Eliminar Finca", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+                    if(des2==0){
+                        DBManager dbm = new DBManager();
+                        Finca fincaDB= dbm.findFincaById(fincaLocal.getId());
+                        dbm.delete(fincaDB);
+                        dbm.close();
+                        dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(new JFrame(),"Acción cancelada","Error de operación",JOptionPane.ERROR_MESSAGE);
+                    }
+            }else{
+                JOptionPane.showMessageDialog(new JFrame(),"Acción cancelada","Error de operación",JOptionPane.ERROR_MESSAGE);
+            }
+        }else{
+            JOptionPane.showMessageDialog(new JFrame(),"Debe seleccionar una finca.","Error de operación",JOptionPane.ERROR_MESSAGE);
+        }      
+    }//GEN-LAST:event_eliminarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,6 +293,7 @@ public class FincaTableUI extends javax.swing.JFrame {
     private javax.persistence.EntityManager TCUGanaderosPUEntityManager;
     private javax.swing.JButton agregarButton;
     private javax.swing.JButton detallesButton;
+    private javax.swing.JButton eliminarButton;
     private java.util.List<ucr.ac.cr.ecci.Models.Finca> fincaList;
     private javax.persistence.Query fincaQuery;
     private javax.swing.JTable fincasTable;
