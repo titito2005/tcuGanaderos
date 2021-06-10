@@ -145,7 +145,7 @@ public class ConfiguracionUI extends javax.swing.JFrame {
 
         jLabel2.setText("Cantidad mínima de días luego del salto para mostrar alerta de palpación:");
 
-        jLabel3.setText("Cantidad de días antes del parto para mostrar alertas:");
+        jLabel3.setText("Cantidad de días de gestación mínima para mostrar alerta por parto:");
 
         guardarGeneralButton.setText("Guardar");
         guardarGeneralButton.addActionListener(new java.awt.event.ActionListener() {

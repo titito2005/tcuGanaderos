@@ -277,7 +277,7 @@ public class FincaUI extends javax.swing.JFrame {
                 conf.setMaxAlertaDestete(240);
                 conf.setAlertaPalpacion(15);
                 conf.setMaxAlertaPalpacion(22);
-                conf.setAlertaParto(15);
+                conf.setAlertaParto(260);
                 conf.setIdFinca(finca);
                 conf.setMaxIep(400);
                 conf.setLimitePa(140);

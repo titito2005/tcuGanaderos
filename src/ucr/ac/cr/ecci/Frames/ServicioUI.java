@@ -65,7 +65,10 @@ public class ServicioUI extends javax.swing.JFrame {
         jTextField2.setText(Integer.toString(aux));
     }
     
-    public ServicioUI(Servicio servicio, Bovino bovino){;
+    public ServicioUI(Servicio servicio, Bovino bovino){
+        this.bovino = bovino;
+        Finca fincaBovino = bovino.getIdFinca();
+        idFincaBovino = fincaBovino.getId();
         initComponents();
         comprobacionComboBox1.addItem("Negativo");
         comprobacionComboBox1.addItem("Positivo");
@@ -75,7 +78,6 @@ public class ServicioUI extends javax.swing.JFrame {
         tipoServicioComboBox1.addItem("IATF");
         tipoServicioComboBox1.addItem("Transferencia de embriones");
         DBManager dbm = new DBManager();
-        this.bovino=bovino;
         editar=true;
         centreWindow(this);
         this.servicio= servicio;
@@ -95,6 +97,7 @@ public class ServicioUI extends javax.swing.JFrame {
             padreComboBox.setSelectedItem(bovinoPadreDB);
         }else{
         }        
+        
 
         if(servicio.getModoPalpacion()!=null){
         jTextField3.setText(servicio.getModoPalpacion());
@@ -459,7 +462,7 @@ public class ServicioUI extends javax.swing.JFrame {
             Bovino bovinoPadreLocal = (Bovino) padreComboBox.getSelectedItem();//SELECCIONA TORO DONADOR
             Bovino bovinoPadreDB = dbm.findBovinoById(bovinoPadreLocal.getId());
             if(bovinoPadreDB!=null){
-                servicio.setIdToro(bovinoPadreDB.getId());//SET TODRO DONADOR
+                servicio.setIdToro(bovinoPadreDB.getId());//SET TORO DONADOR
             }else{
                 JOptionPane.showMessageDialog(new JFrame(),"Toro no encontrado.","Error de operación",JOptionPane.ERROR_MESSAGE);
                 guardar=false;                

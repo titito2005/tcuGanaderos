@@ -78,8 +78,8 @@ public class ResumenUI extends javax.swing.JFrame {
     double porcentajeConcepcion;
     
     String iep_promedio_query;
-    int iep_prom;
-    int ultimo_iep_prom;
+    double iep_prom;
+    double ultimo_iep_prom;
     int cantidad_partos_activas;
     double SC;
     
@@ -497,13 +497,15 @@ public class ResumenUI extends javax.swing.JFrame {
         iep_prom = 0;
         ultimo_iep_prom = 0;
         cantidad_partos_activas = 0;
+        double cantidad_vacas_con_iep = 0;
          for (int i = 0; i < vacasActivasList.size(); i++){
             Bovino vaca_temp = (Bovino) vacasActivasList.get(i);
             Object[] partosArray = vaca_temp.getPartoCollection().toArray();
             cantidad_partos_activas += partosArray.length;
             int iep = 0;
             int ultimo_iep = 0;
-            if (partosArray.length > 1){
+            if (partosArray.length >= 2){
+                cantidad_vacas_con_iep ++;
                 int k;
                 for (k = 1; k < partosArray.length; k++){
                     //Fechas
@@ -523,25 +525,41 @@ public class ResumenUI extends javax.swing.JFrame {
             iep_prom += iep;
             ultimo_iep_prom += ultimo_iep;
          }
-         if (!vacasActivasList.isEmpty()) {
-            iep_prom = iep_prom/vacasActivasList.size();
-            ultimo_iep_prom = ultimo_iep_prom/vacasActivasList.size();
+         if (cantidad_vacas_con_iep != 0) {
+            iep_prom = iep_prom/cantidad_vacas_con_iep;
+            ultimo_iep_prom = ultimo_iep_prom/cantidad_vacas_con_iep;
+         }else{
+            iep_prom = iep_prom/1.0;
+            ultimo_iep_prom = ultimo_iep_prom/1.0;
          }
 
-        
-        
         hembrasConsideradasTextField.setText(Integer.toString(vacasActivasList.size()));
         
         hembrasParidoTextField.setText(Integer.toString(vacasActivasPartosList.size()));
         
-        iepPromedioTextField.setText(Integer.toString(iep_prom));
+        iepPromedioTextField.setText(Double.toString(iep_prom));
         
         serviciosConcepcionTextField.setText("0");
-
+        
+        double abortos=0;
+        double partos=0;
+        for(int i=0; i<vacasActivasList.size(); i++){
+        Bovino vaca_temp = (Bovino) vacasActivasList.get(i);
+            Object[] partosArray = vaca_temp.getPartoCollection().toArray();
+            for (int k = 0; k < (partosArray.length); k++){
+                Parto p1 = (Parto) partosArray[k];
+                if(p1.getMuerteprematura()){
+                    abortos++;
+                }else{
+                    partos++;
+                }
+            }
+        }
+        
+        double porcentaje_paricion = (partos/(abortos+partos))*100;
         
         double vacas_activas = (double) vacasActivasList.size();
         double vacas_partos_activas = (double) vacasActivasPartosList.size();
-        double porcentaje_paricion = (vacas_partos_activas/vacas_activas)*100;
         String porcentaje_paricion_s = Double.toString(porcentaje_paricion);
         porcentaje_paricion_s = porcentaje_paricion_s.substring(0, Math.min(porcentaje_paricion_s.length(), 5));
         if (porcentaje_paricion_s.equals("NaN")){
@@ -549,7 +567,7 @@ public class ResumenUI extends javax.swing.JFrame {
         }
         porcentajeParicionTextField.setText(porcentaje_paricion_s);
         
-        ultimoIEPTextField.setText(Integer.toString(ultimo_iep_prom));
+        ultimoIEPTextField.setText(Double.toString(ultimo_iep_prom));
         
         String promedio_partos_hato_s = Double.toString((double)cantidad_partos_activas/vacas_activas);
         promedio_partos_hato_s = promedio_partos_hato_s.substring(0, Math.min(promedio_partos_hato_s.length(), 5));
@@ -609,13 +627,15 @@ public class ResumenUI extends javax.swing.JFrame {
         iep_prom = 0;
         ultimo_iep_prom = 0;
         cantidad_partos_activas = 0;
+        double cantidad_vacas_con_iep = 0;
          for (int i = 0; i < vacasActivasPartosFechasList.size(); i++){
             Bovino vaca_temp = (Bovino) vacasActivasPartosFechasList.get(i);
             Object[] partosArray = vaca_temp.getPartoCollection().toArray();
             cantidad_partos_activas += partosArray.length;
             int iep = 0;
-            int ultimo_iep = 0;
-            if (partosArray.length > 1){
+            int ultimo_iep = 0;         
+            if (partosArray.length >= 2){
+                cantidad_vacas_con_iep ++;
                 int k;
                 for (k = 1; k < partosArray.length; k++){
                     //Fechas
@@ -636,13 +656,15 @@ public class ResumenUI extends javax.swing.JFrame {
             ultimo_iep_prom += ultimo_iep;
          }
          
-        if (!vacasActivasPartosList.isEmpty()) {
-            iep_prom = iep_prom/vacasActivasPartosFechasList.size();
-            ultimo_iep_prom = ultimo_iep_prom/vacasActivasPartosFechasList.size();
+         if (cantidad_vacas_con_iep != 0) {
+            iep_prom = iep_prom/cantidad_vacas_con_iep;
+            ultimo_iep_prom = ultimo_iep_prom/cantidad_vacas_con_iep;
+         }else{
+            iep_prom = iep_prom/1.0;
+            ultimo_iep_prom = ultimo_iep_prom/1.0;
          }
-
          
-        iepPromedioTextField.setText(Integer.toString(iep_prom));
+        iepPromedioTextField.setText(Double.toString(iep_prom));
          
         double vacas_activas = (double) vacasActivasFechasList.size();
         double vacas_partos_activas = (double) vacas_partos_fechas;
@@ -654,7 +676,7 @@ public class ResumenUI extends javax.swing.JFrame {
         }
         porcentajeParicionTextField.setText(porcentaje_paricion_s);
         
-        ultimoIEPTextField.setText(Integer.toString(ultimo_iep_prom));
+        ultimoIEPTextField.setText(Double.toString(ultimo_iep_prom));
         
         String promedio_partos_hato_s = Double.toString((double)cantidad_partos_activas/vacas_activas);
         promedio_partos_hato_s = promedio_partos_hato_s.substring(0, Math.min(promedio_partos_hato_s.length(), 5));
@@ -737,7 +759,7 @@ public class ResumenUI extends javax.swing.JFrame {
         empinfo.put( 3, new Object[] {"Hembras consideradas: ", hembrasConsideradasTextField.getText()});
         empinfo.put( 4, new Object[] {"Hembras que han parido: ", hembrasParidoTextField.getText()});
         empinfo.put( 5, new Object[] {"IEP promedio histórico (días): ", iepPromedioTextField.getText()});
-        empinfo.put( 6, new Object[] {"Porcentaje parición histórico: ", porcentajeParicionTextField.getText()});
+        empinfo.put( 6, new Object[] {"Porcentaje partos exitosos: ", porcentajeParicionTextField.getText()});
         empinfo.put( 7, new Object[] {"Promedio último IEP de cada vaca (días): ", ultimoIEPTextField.getText()});
         empinfo.put( 8, new Object[] {"Promedio de partos hato: ", promedioPartosHatoTextField.getText()});
         empinfo.put( 9, new Object[] {"Promedio de servicios por concepción: ", serviciosConcepcionTextField.getText()});
@@ -1021,7 +1043,7 @@ public class ResumenUI extends javax.swing.JFrame {
         empinfo.put( 3, new Object[] {"Hembras consideradas: ", hembrasConsideradasTextField.getText()});
         empinfo.put( 4, new Object[] {"Hembras que han parido: ", hembrasParidoTextField.getText()});
         empinfo.put( 5, new Object[] {"IEP promedio histórico (días): ", iepPromedioTextField.getText()});
-        empinfo.put( 6, new Object[] {"Porcentaje de parición histórico: ", porcentajeParicionTextField.getText()});
+        empinfo.put( 6, new Object[] {"Porcentaje partos exitosos: ", porcentajeParicionTextField.getText()});
         empinfo.put( 7, new Object[] {"Promedio último IEP de cada vaca (días): ", ultimoIEPTextField.getText()});
         empinfo.put( 8, new Object[] {"Promedio de partos hato: ", promedioPartosHatoTextField.getText()});
         empinfo.put( 9, new Object[] {"Ultimo % parición: ", ultimoPorcentajeParicionTextField.getText()});
@@ -1308,7 +1330,7 @@ public class ResumenUI extends javax.swing.JFrame {
 
         jLabel4.setText("IEP promedio histórico (días):");
 
-        jLabel5.setText("Porcentaje parición histórico:");
+        jLabel5.setText("Porcentaje partos exitosos:");
 
         jLabel6.setText("Promedio último IEP de cada vaca:");
 

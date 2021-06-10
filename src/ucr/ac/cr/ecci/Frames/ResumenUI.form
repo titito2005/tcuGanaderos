@@ -227,7 +227,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Porcentaje parici&#xf3;n hist&#xf3;rico:"/>
+        <Property name="text" type="java.lang.String" value="Porcentaje partos exitosos:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">

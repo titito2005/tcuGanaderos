@@ -17,8 +17,8 @@
     <class>ucr.ac.cr.ecci.Models.Configuracion</class>
     <class>ucr.ac.cr.ecci.Models.Servicio</class>
     <class>ucr.ac.cr.ecci.Models.Servicio_1</class>
-    <property name="javax.persistence.jdbc.url" value="jdbc:derby:TCUGanaderosDB;create=true"/>
-    <properties>
+<property name="javax.persistence.jdbc.url" value="jdbc:derby:TCUGanaderosDB;create=true"/>
+<properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:TCUGanaderosDB;create=true"/>
       <property name="javax.persistence.jdbc.user" value="nbuser"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
