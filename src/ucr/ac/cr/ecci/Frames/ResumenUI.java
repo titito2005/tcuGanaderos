@@ -768,7 +768,7 @@ public class ResumenUI extends javax.swing.JFrame {
         empinfo.put( 12, new Object[] {"Promedio de abortos (General): ", Double.toString(promedioAbortos())});
         empinfo.put( 13, new Object[] {""});
         empinfo.put( 14, new Object[] {"Orden","Nombre", "Número trazable", "Edad a primer parto (meses)", "Partos", "Edad de la última cría (meses)",
-        "Fecha destete a 7 meses, última cría", "IEP Promedio (días)", "Último IEP (días)", "Último celo", "Gestación (días)", "Parto"});
+        "Fecha destete a 7 meses, última cría", "IEP Promedio (días)", "Último IEP (días)", "Último celo"});
         
         int[][] data_type = {{1,1,1,1},{1,1,1},{1,1,2},{1,1,2},{1,1,2},{1,1,2},{1,1,2},{1,1,2},{1,1,2},{1,1,2},{1,1,2},{1,1,2},
             {1},{1,1,1,1,1,1,1,1,1,1,1,1}};
@@ -845,6 +845,7 @@ public class ResumenUI extends javax.swing.JFrame {
                 Celo celo = (Celo) celos_array[celos_array.length-1];
                 ultimo_celo = df.format(celo.getFecha());
             }
+            /*
             String gestacion = "";
             boolean embarazada = false;
             if (!ultimo_celo.equals("")){
@@ -876,8 +877,9 @@ public class ResumenUI extends javax.swing.JFrame {
                 fecha_parto = df.format(parto.getFecha());
                 //fecha_parto = df.format(parto_fecha);
             }
+            */
             
-            empinfo.put( fila, new Object[] {orden, nombre, id, edad_primer_parto, partos, edad_ultima_cria, ultimo_destete, iep_s, ultimo_iep_s, ultimo_celo, gestacion, fecha_parto });
+            empinfo.put( fila, new Object[] {orden, nombre, id, edad_primer_parto, partos, edad_ultima_cria, ultimo_destete, iep_s, ultimo_iep_s, ultimo_celo});
             
             int data_types_vaca[] = new int[12];
             data_types_vaca[0] = 2;
@@ -898,10 +900,6 @@ public class ResumenUI extends javax.swing.JFrame {
                 data_types_vaca[8] = 1;
             else data_types_vaca[8] = 2;
             data_types_vaca[9] = 1;
-            if (gestacion.equals(""))
-                data_types_vaca[10] = 1;
-            else data_types_vaca[10] = 2;
-            data_types_vaca[11] = 1;
             
             data_type = ArrayUtils.add(data_type, data_types_vaca);
         }
@@ -1125,6 +1123,7 @@ public class ResumenUI extends javax.swing.JFrame {
                     }
                 }        
             }
+            /*
             String gestacion = "";
             boolean embarazada = false;
             if (!ultimo_celo.equals("")){
@@ -1150,6 +1149,7 @@ public class ResumenUI extends javax.swing.JFrame {
                     Calendar celo_fecha = Calendar.getInstance();
                     parto_fecha.setTime(ultimoParto.getFecha());
                     celo_fecha.setTime(ultimoCelo.getFecha());
+                    
                     if (celo_fecha.before(parto_fecha)){
                         gestacion_dias = getIntervaloFechas( celo_fecha, parto_fecha);
                     } else {
@@ -1173,8 +1173,9 @@ public class ResumenUI extends javax.swing.JFrame {
                     }
 
             }
+            */
             
-            empinfo.put( fila, new Object[] {orden, nombre, id, edad_primer_parto, partos, edad_ultima_cria, ultimo_destete, iep_s, ultimo_iep_s, ultimo_celo, gestacion, fecha_parto });
+            empinfo.put( fila, new Object[] {orden, nombre, id, edad_primer_parto, partos, edad_ultima_cria, ultimo_destete, iep_s, ultimo_iep_s, ultimo_celo});
             
             int data_types_vaca[] = new int[12];
             data_types_vaca[0] = 2;
@@ -1195,10 +1196,6 @@ public class ResumenUI extends javax.swing.JFrame {
                 data_types_vaca[8] = 1;
             else data_types_vaca[8] = 2;
             data_types_vaca[9] = 1;
-            if (gestacion.equals(""))
-                data_types_vaca[10] = 1;
-            else data_types_vaca[10] = 2;
-            data_types_vaca[11] = 1;
             
             data_type = ArrayUtils.add(data_type, data_types_vaca);
         }
